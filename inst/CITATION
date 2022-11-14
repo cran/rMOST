@@ -1,0 +1,27 @@
+citEntry(
+  entry    = "Article",
+  title    = "Multi-objective optimization for personnel selection: A guide, tutorial, and user-friendly tool",
+  author   = personList(as.person("Chelsea Song"), as.person("Chen Tang"), as.person("Leo Alexander III"), as.person("Louis Hickman"), as.person("Yesuel Kim")),
+  journal  = "Personnel Psychology",
+  year     = "in press",
+  volume   = "",
+  number   = "",
+  pages    = "",
+  url      = "",
+  header   = "To cite rMOST in publications use:",
+  textVersion = "Song, Q. C., Tang, C., Alexander III, L., Hickman, L., & Kim, Y. (in press) Multi-objective optimization for personnel selection: A guide, tutorial, and user-friendly tool. Personnel Psychology"
+)
+
+citEntry(
+  entry    = "Misc",
+  title    = "MOST: Estimates Pareto-optimal solution for hiring with 3 objectives",
+  author   = as.person("Chelsea Song"),
+  note     = "R package version 0.0.1",
+  year     = "2022",
+  volume   = "",
+  number   = "",
+  pages    = "",
+  url      = "",
+  header   = "To cite rMOST in publications, could also use:",
+  textVersion = "Song, Q. C. (2022). MOST: Estimates Pareto-optimal solution for hiring with 3 objectives. R package version 0.0.1"
+)
