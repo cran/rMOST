@@ -1,7 +1,7 @@
-bd77e982249bceaa973c4867e837dbde *DESCRIPTION
+1aa226953b897e04469c5f1430cef6df *DESCRIPTION
 e81d3d617bb0d7b1e9ea5db8bc16078e *LICENSE
 b5351111a6d27c052a4a4f1ccd42ca8c *NAMESPACE
-25627c615ed43da110af273f3f49a292 *NEWS.md
+43758953138f4cc67551cb19654355c3 *NEWS.md
 b30041caf885a1ec0587463395b5e5d6 *R/MOST.R
 9d1769b16e086e4b9d7e723bc2dc952b *R/ParetoR_1C_1AIR.R
 ffe0d11848ab43317834ef69101b0cc3 *R/ParetoR_1C_2AIR.R
@@ -13,10 +13,10 @@ df0414ed00af348151eaf39be085e985 *R/calc_out.R
 dc591f2d0f56d0e6bbcde621e5a56561 *R/zzz.R
 afbe4209b3bb961ba3e41cbfe79ea507 *build/partial.rdb
 74b033ff1f2708c3204c4e7b8c7c4465 *build/vignette.rds
-109a6ee282537f26b1772c4ed8100b01 *inst/CITATION
+803c4cd0ce97b886011d0d12d8516d75 *inst/CITATION
 144bf8dfc2bc4b96db9296676f3bf991 *inst/doc/rMOST-vignette.R
-b9564814f60c5e355cbd1ed6658360e4 *inst/doc/rMOST-vignette.Rmd
-7b761caacdc80a39ba42142511657171 *inst/doc/rMOST-vignette.html
+d62b3ba708c4880793e426fcbbf5e026 *inst/doc/rMOST-vignette.Rmd
+0c90c17e36f8e5a03682f72b1a1a3501 *inst/doc/rMOST-vignette.html
 d636d9f6417f1c84c3361ea35806ef2b *man/MOST.Rd
 dbdccfe05a7ebbd525f19cf1e9f38c68 *man/NBI_1C_1AIR.Rd
 b519ca08ab494be40e7b2e561ef730cb *man/NBI_1C_2AIR.Rd
@@ -68,7 +68,7 @@ b058090626fd07bacde2745158e51557 *man/myTCon_eq_3C.Rd
 9f6648770c0b8bf0c25edb02a0fc9416 *man/myTCon_ineq.Rd
 05d8740685d7e86d84a662b50ccd7c9f *man/plotPareto_1C_1AIR.Rd
 2c4e599d7f7f3ca9b03f85d8e180073b *man/plotPareto_2C.Rd
-4fe2686a5cb717afbcfece11e51441a0 *man/rMOST-package.Rd
+3b848da11316ce5530e27958c8a79b18 *man/rMOST-package.Rd
 d6352ae4bd578a72b797f1ad2ac7ed19 *tests/testthat.R
-020752372980010ba6732818ea1c4358 *tests/testthat/test-MOST.R
-b9564814f60c5e355cbd1ed6658360e4 *vignettes/rMOST-vignette.Rmd
+89ba73e1399940329548b5b2284732d9 *tests/testthat/test-MOST.R
+d62b3ba708c4880793e426fcbbf5e026 *vignettes/rMOST-vignette.Rmd

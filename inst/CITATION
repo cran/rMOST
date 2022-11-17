@@ -16,12 +16,12 @@ citEntry(
   entry    = "Misc",
   title    = "MOST: Estimates Pareto-optimal solution for hiring with 3 objectives",
   author   = as.person("Chelsea Song"),
-  note     = "R package version 0.0.1",
+  note     = "R package version 0.0.2",
   year     = "2022",
   volume   = "",
   number   = "",
   pages    = "",
   url      = "",
   header   = "To cite rMOST in publications, could also use:",
-  textVersion = "Song, Q. C. (2022). MOST: Estimates Pareto-optimal solution for hiring with 3 objectives. R package version 0.0.1"
+  textVersion = "Song, Q. C. (2022). MOST: Estimates Pareto-optimal solution for hiring with 3 objectives. R package version 0.0.2"
 )
