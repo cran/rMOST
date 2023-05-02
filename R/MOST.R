@@ -81,10 +81,10 @@ MOST <- function(optProb, Rx, Rxy1, Rxy2, Rxy3, sr, prop1, prop2, d1, d2, Spac =
     assign("Rxy2_ParetoR", Rxy2, rMOSTenv)
     assign("Rxy3_ParetoR", Rxy3, rMOSTenv)
 
-    out1 <- ParetoR_3C(Rx = Rx, Rxy1 = Rxy1, Rxy2 = Rxy2, Rxy3 = Rxy3, Spac = Spac)
-    out2.1 <- ParetoR_2C(Rx = Rx, Rxy1 = Rxy1, Rxy2 = Rxy2, Spac = Spac, graph = FALSE)
-    out2.2 <- ParetoR_2C(Rx = Rx, Rxy1 = Rxy1, Rxy2 = Rxy3, Spac = Spac, graph = FALSE)
-    out2.3 <- ParetoR_2C(Rx = Rx, Rxy1 = Rxy2, Rxy2 = Rxy3, Spac = Spac, graph = FALSE)
+    out1 <- ParetoR_3C(Rx = rMOSTenv$Rx_ParetoR, Rxy1 = rMOSTenv$Rxy1_ParetoR, Rxy2 = rMOSTenv$Rxy2_ParetoR, Rxy3 = rMOSTenv$Rxy3_ParetoR, Spac = Spac)
+    out2.1 <- ParetoR_2C(Rx = rMOSTenv$Rx_ParetoR, Rxy1 = rMOSTenv$Rxy1_ParetoR, Rxy2 = rMOSTenv$Rxy2_ParetoR, Spac = Spac, graph = FALSE)
+    out2.2 <- ParetoR_2C(Rx = rMOSTenv$Rx_ParetoR, Rxy1 = rMOSTenv$Rxy1_ParetoR, Rxy2 = rMOSTenv$Rxy3_ParetoR, Spac = Spac, graph = FALSE)
+    out2.3 <- ParetoR_2C(Rx = rMOSTenv$Rx_ParetoR, Rxy1 = rMOSTenv$Rxy2_ParetoR, Rxy2 = rMOSTenv$Rxy3_ParetoR, Spac = Spac, graph = FALSE)
 
   } else if (rMOSTenv$optProb == "2C_1AI"){
 
@@ -101,10 +101,10 @@ MOST <- function(optProb, Rx, Rxy1, Rxy2, Rxy3, sr, prop1, prop2, d1, d2, Spac =
     assign("prop1_ParetoR", prop1, rMOSTenv)
     assign("d1_ParetoR", d1, rMOSTenv)
 
-    out1 <- ParetoR_2C_1AIR(Rx = Rx, Rxy1 = Rxy1, Rxy2 = Rxy2, sr = sr, prop1 = prop1, d1 = d1, Spac = Spac)
-    out2.1 <- ParetoR_2C(Rx = Rx, Rxy1 = Rxy1, Rxy2 = Rxy2, Spac = Spac, graph = FALSE)
-    out2.2 <- ParetoR(Rx = Rx, Rxy1 = Rxy1, sr = sr, prop1 = prop1, d1 = d1, Spac = Spac, graph = FALSE)
-    out2.3 <- ParetoR(Rx = Rx, Rxy1 = Rxy2, sr = sr, prop1 = prop1, d1 = d1, Spac = Spac, graph = FALSE)
+    out1 <- ParetoR_2C_1AIR(Rx = rMOSTenv$Rx_ParetoR, Rxy1 = rMOSTenv$Rxy1_ParetoR, Rxy2 = rMOSTenv$Rxy2_ParetoR, sr = rMOSTenv$sr_ParetoR, prop1 = rMOSTenv$prop1_ParetoR, d1 = rMOSTenv$d1_ParetoR, Spac = Spac)
+    out2.1 <- ParetoR_2C(Rx = rMOSTenv$Rx_ParetoR, Rxy1 = rMOSTenv$Rxy1_ParetoR, Rxy2 = rMOSTenv$Rxy2_ParetoR, Spac = Spac, graph = FALSE)
+    out2.2 <- ParetoR_1C_1AIR(Rx = rMOSTenv$Rx_ParetoR, Rxy1 = rMOSTenv$Rxy1_ParetoR, sr = rMOSTenv$sr_ParetoR, prop1 = rMOSTenv$prop1_ParetoR, d1 = rMOSTenv$d1_ParetoR, Spac = Spac, graph = FALSE)
+    out2.3 <- ParetoR_1C_1AIR(Rx = rMOSTenv$Rx_ParetoR, Rxy1 = rMOSTenv$Rxy2_ParetoR, sr = rMOSTenv$sr_ParetoR, prop1 = rMOSTenv$prop1_ParetoR, d1 = rMOSTenv$d1_ParetoR, Spac = Spac, graph = FALSE)
 
   } else if (rMOSTenv$optProb == "1C_2AI"){
 
@@ -123,9 +123,36 @@ MOST <- function(optProb, Rx, Rxy1, Rxy2, Rxy3, sr, prop1, prop2, d1, d2, Spac =
     assign("d1_ParetoR", d1, rMOSTenv)
     assign("d2_ParetoR", d2, rMOSTenv)
 
-    out1 <- ParetoR_1C_2AIR(Rx = Rx, Rxy1 = Rxy1, sr = sr, prop1 = prop1, prop2 = prop2, d1 = d1, d2 = d2, Spac = Spac)
-    out2.1 <- ParetoR(Rx = Rx, Rxy1 = Rxy1, sr = sr, prop1 = prop1, d1 = d1, Spac = Spac)
-    out2.2 <- ParetoR(Rx = Rx, Rxy1 = Rxy1, sr = sr, prop1 = prop2, d1 = d2, Spac = Spac)
+    out1 <-
+      ParetoR_1C_2AIR(
+        Rx = rMOSTenv$Rx_ParetoR,
+        Rxy1 = rMOSTenv$Rxy1_ParetoR,
+        sr = rMOSTenv$sr_ParetoR,
+        prop1 = rMOSTenv$prop1_ParetoR,
+        prop2 = rMOSTenv$prop2_ParetoR,
+        d1 = rMOSTenv$d1_ParetoR,
+        d2 = rMOSTenv$d2_ParetoR,
+        Spac = Spac
+      )
+
+    out2.1 <-
+      ParetoR_1C_1AIR(
+        Rx = rMOSTenv$Rx_ParetoR,
+        Rxy1 = rMOSTenv$Rxy1_ParetoR,
+        sr = rMOSTenv$sr_ParetoR,
+        prop1 = rMOSTenv$prop1_ParetoR,
+        d1 = rMOSTenv$d1_ParetoR,
+        Spac = Spac
+      )
+    out2.2 <-
+      ParetoR_1C_1AIR(
+        Rx = rMOSTenv$Rx_ParetoR,
+        Rxy1 = rMOSTenv$Rxy1_ParetoR,
+        sr = rMOSTenv$sr_ParetoR,
+        prop1 = rMOSTenv$prop2_ParetoR,
+        d1 = rMOSTenv$d2_ParetoR,
+        Spac = Spac
+      )
     out2.3 <- NULL
 
   }
@@ -133,18 +160,21 @@ MOST <- function(optProb, Rx, Rxy1, Rxy2, Rxy3, sr, prop1, prop2, d1, d2, Spac =
   ## Obtain Hiring Outcomes ##
 
   DF1a <- as.data.frame(round(out1$Pareto_Xmat,3))
+  # DF1a <- unique(as.data.frame(round(out1$Pareto_Xmat,3)))
   DF1b <-  as.data.frame(matrix(apply(DF1a, 1, calc_out), ncol=3, byrow=TRUE))
   colnames(DF1b) <- c("Ry1","Ry2","Ry3")
   rownames(DF1b) <- c(1:nrow(DF1b))
   tab1 <- as.data.frame(cbind(DF1b,DF1a))
 
   DF2.1a <- as.data.frame(round(out2.1$Pareto_Xmat,3))
+  # DF2.1a <- unique(as.data.frame(round(out2.1$Pareto_Xmat,3)))
   DF2.1b <-  as.data.frame(matrix(apply(DF2.1a, 1, calc_out), ncol=3, byrow=TRUE))
   colnames(DF2.1b) <- c("Ry1","Ry2","Ry3")
   rownames(DF2.1b) <- c(1:nrow(DF2.1b))
   tab2.1 <- as.data.frame(cbind(DF2.1b,DF2.1a))
 
   DF2.2a <- as.data.frame(round(out2.2$Pareto_Xmat,3))
+  # DF2.2a <- unique(as.data.frame(round(out2.2$Pareto_Xmat,3)))
   DF2.2b <-  as.data.frame(matrix(apply(DF2.2a, 1, calc_out), ncol=3, byrow=TRUE))
   colnames(DF2.2b) <- c("Ry1","Ry2","Ry3")
   rownames(DF2.2b) <- c(1:nrow(DF2.2b))
@@ -152,6 +182,7 @@ MOST <- function(optProb, Rx, Rxy1, Rxy2, Rxy3, sr, prop1, prop2, d1, d2, Spac =
 
   if (rMOSTenv$optProb == "3C" | rMOSTenv$optProb == "2C_1AI") {
 
+    # DF2.3a <- unique(as.data.frame(round(out2.3$Pareto_Xmat,3)))
     DF2.3a <- as.data.frame(round(out2.3$Pareto_Xmat,3))
     DF2.3b <-  as.data.frame(matrix(apply(DF2.3a, 1, calc_out), ncol=3, byrow=TRUE))
     colnames(DF2.3b) <- c("Ry1","Ry2","Ry3")

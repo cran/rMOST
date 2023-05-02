@@ -1,7 +1,7 @@
-citEntry(
-  entry    = "Article",
-  title    = "Multi-objective optimization for personnel selection: A guide, tutorial, and user-friendly tool",
-  author   = personList(as.person("Chelsea Song"), as.person("Chen Tang"), as.person("Leo Alexander III"), as.person("Louis Hickman"), as.person("Yesuel Kim")),
+bibentry(
+  bibtype    = "Article",
+  title    = "Reducing Subgroup Differences in Personnel Selection through the Application of Machine Learning",
+  author   = c(as.person("N Zhang"), as.person("M Wang"), as.person("H Xu"), as.person("N Koenig"), as.person ("L Hickman"), as.person("J Kuruzovich"), as.person("V Ng"), as.person("K Arhin"), as.person("D Wilson"), as.person("Chelsea Song"), as.person("Chen Tang"), as.person("Leo Alexander III"), as.person("Louis Hickman"), as.person("Yesuel Kim")),
   journal  = "Personnel Psychology",
   year     = "in press",
   volume   = "",
@@ -9,19 +9,18 @@ citEntry(
   pages    = "",
   url      = "",
   header   = "To cite rMOST in publications use:",
-  textVersion = "Song, Q. C., Tang, C., Alexander III, L., Hickman, L., & Kim, Y. (in press) Multi-objective optimization for personnel selection: A guide, tutorial, and user-friendly tool. Personnel Psychology"
-)
+  textVersion = "*Zhang, N. Wang, M., Xu, H., Koenig, N., Hickman, L., Kuruzovich, J., Ng, V., Arhin, K., Wilson, D., Song, Q. C., Tang, C., Alexander, L., & Kim, Y. (In Press). Reducing Subgroup Differences in Personnel Selection through the Application of Machine Learning. Personnel Psychology.")
 
-citEntry(
-  entry    = "Misc",
-  title    = "MOST: Estimates Pareto-optimal solution for hiring with 3 objectives",
+bibentry(
+  bibtype    = "Misc",
+  title    = "rMOST: Estimates Pareto-optimal solution for hiring with 3 objectives",
   author   = as.person("Chelsea Song"),
-  note     = "R package version 0.0.2",
-  year     = "2022",
+  note     = "R package version 1.0.0",
+  year     = "2023",
   volume   = "",
   number   = "",
   pages    = "",
   url      = "",
   header   = "To cite rMOST in publications, could also use:",
-  textVersion = "Song, Q. C. (2022). MOST: Estimates Pareto-optimal solution for hiring with 3 objectives. R package version 0.0.2"
+  textVersion = "Song, Q. C. (2023). rMOST: Estimates Pareto-optimal solution for hiring with 3 objectives. R package version 1.0.0"
 )

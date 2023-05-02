@@ -33,7 +33,7 @@ NBI_1C_1AIR(
 
 \item{TolCon}{Tolerance index for constraint conditions, default is 1e-7}
 
-\item{graph}{If TRUE, plots will be generated for Pareto-optimal curve and predictor weights}
+\item{graph}{If TRUE, plots will be generated for Pareto-optimal curve and predictor Weights_1C_1AIR}
 }
 \value{
 Pareto-Optimal solutions

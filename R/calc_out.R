@@ -47,6 +47,7 @@ calc_out <- function(x) {
 
     # predictor-objective relationships
     cmat <- t(cbind(as.matrix(Rxy1), as.matrix(d1), as.matrix(d2)))
+
   }
 
   # predictor correlations
@@ -62,7 +63,7 @@ calc_out <- function(x) {
 
   if (rMOSTenv$optProb == "2C_1AI"){
 
-    cors[3] <- ai_ratio(cors[3], sr = sr, p = prop1)
+    cors[3] <- ai_ratio(d = cors[3], sr = sr, p = prop1)
 
   } else if (rMOSTenv$optProb == "1C_2AI"){
 
@@ -75,7 +76,7 @@ calc_out <- function(x) {
 
 }
 
-#' calc_out
+#' ai_ratio
 #'
 #' Helper function to convert mean subgroup differences to AI ratios (Newman et
 #' al., 2007). Called by calc_out().

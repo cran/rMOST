@@ -22,7 +22,9 @@
 #'   predictor weights (ParetoWeights)
 #' @keywords internal
 
-ParetoR_1C_2AIR = function(sr, prop1, prop2, Rx, Rxy1, d1, d2, Spac = 10){
+ParetoR_1C_2AIR = function(sr, prop1, prop2, Rx, Rxy1, d1, d2,
+                           # Spac = 20){ # SHINY app says 20
+                           Spac = 10){
 
   # sr_1C_2AIR <<- sr
   # prop1_1C_2AIR <<- prop1
@@ -31,13 +33,13 @@ ParetoR_1C_2AIR = function(sr, prop1, prop2, Rx, Rxy1, d1, d2, Spac = 10){
   # Rxy1_1C_2AIR <<- Rxy1
   # d1_1C_2AIR <<- d1
   # d2_1C_2AIR <<- d2
-  assign("sr_1C_2AIR", sr, rMOSTenv)
-  assign("prop1_1C_2AIR", prop1, rMOSTenv)
-  assign("prop2_1C_2AIR", prop2, rMOSTenv)
-  assign("Rx_1C_2AIR", Rx, rMOSTenv)
-  assign("Rxy1_1C_2AIR", Rxy1, rMOSTenv)
-  assign("d1_1C_2AIR", d1, rMOSTenv)
-  assign("d2_1C_2AIR", d2, rMOSTenv)
+  assign("sr_1C_2AIR", sr, rMOSTenv_1C_2AIR)
+  assign("prop1_1C_2AIR", prop1, rMOSTenv_1C_2AIR)
+  assign("prop2_1C_2AIR", prop2, rMOSTenv_1C_2AIR)
+  assign("Rx_1C_2AIR", Rx, rMOSTenv_1C_2AIR)
+  assign("Rxy1_1C_2AIR", Rxy1, rMOSTenv_1C_2AIR)
+  assign("d1_1C_2AIR", d1, rMOSTenv_1C_2AIR)
+  assign("d2_1C_2AIR", d2, rMOSTenv_1C_2AIR)
 
   # Tolerance Level for Algorithm
   TolCon 	= 1e-7 # tolerance of constraint
@@ -54,6 +56,7 @@ ParetoR_1C_2AIR = function(sr, prop1, prop2, Rx, Rxy1, d1, d2, Spac = 10){
   ###### Find Pareto-Optimal Solution ######
 
   out = suppressWarnings(NBI_1C_2AIR(X0, Spac, Fnum, VLB, VUB, TolX, TolF, TolCon))
+
   return(out)
 
 }
@@ -84,9 +87,9 @@ NBI_1C_2AIR = function(X0,Spac,Fnum,VLB=vector(),VUB=vector(),TolX=1e-7,TolF=1e-
 
   #------------------------------Initialize Options-------------------------------#
 
-  X0 = assert_col_vec(X0)
-  VLB = assert_col_vec(VLB)
-  VUB = assert_col_vec(VUB)
+  X0 = assert_col_vec_1C_2AIR(X0)
+  VLB = assert_col_vec_1C_2AIR(VLB)
+  VUB = assert_col_vec_1C_2AIR(VUB)
 
   # Number of variables
   nvars = length(X0)
@@ -106,7 +109,7 @@ NBI_1C_2AIR = function(X0,Spac,Fnum,VLB=vector(),VUB=vector(),TolX=1e-7,TolF=1e-
 
   ShadowF = matrix(0,Fnum)
   ShadowX = matrix(0,nvars,Fnum)
-  out = WeightsFun(Fnum,Spac)
+  out = WeightsFun_1C_2AIR(Fnum,Spac)
   Weight = out$Weights
   Near = out$Formers
   rm(out)
@@ -116,8 +119,8 @@ NBI_1C_2AIR = function(X0,Spac,Fnum,VLB=vector(),VUB=vector(),TolX=1e-7,TolF=1e-
 
     temp = c(1,(Spac+1),dim(Weight)[2])
     j = temp[i]
-    # g_Weight <<- Weight[,j]
-    assign("g_Weight", Weight[,j], rMOSTenv)
+    # g_Weight_1C_2AIR <<- Weight[,j]
+    assign("g_Weight_1C_2AIR", Weight[,j], rMOSTenv_1C_2AIR)
 
     out = suppressMessages(nloptr::slsqp(x0 = X0, fn = myLinCom_1C_2AIR
                                          ,lower = VLB, upper = VUB
@@ -129,6 +132,14 @@ NBI_1C_2AIR = function(X0,Spac,Fnum,VLB=vector(),VUB=vector(),TolX=1e-7,TolF=1e-
     ))
 
     x = out$par
+
+    # ########
+    # print(paste0("i = ", i))
+    # print("out$par:")
+    # print(round(out$par, 3))
+    # print("out$value: ")
+    # print(round(out$value, 3))
+    # ########
 
     x[1:nvars] = x[1:nvars]/sum(x[1:nvars])
     x[2:nvars] = x[2:nvars]/sum(x[2:nvars])
@@ -152,27 +163,27 @@ NBI_1C_2AIR = function(X0,Spac,Fnum,VLB=vector(),VUB=vector(),TolX=1e-7,TolF=1e-
 
   }
 
-  # ShadowF <<- ShadowF
-  # PHI <<- PHI
-  assign("ShadowF", ShadowF, rMOSTenv)
-  assign("PHI", PHI, rMOSTenv)
+  # ShadowF_1C_2AIR <<- ShadowF
+  # PHI_1C_2AIR <<- PHI
+  assign("ShadowF_1C_2AIR", ShadowF, rMOSTenv_1C_2AIR)
+  assign("PHI_1C_2AIR", PHI, rMOSTenv_1C_2AIR)
 
   #------------------------------Quasi-Normal Direction-------------------------------#
 
   # cat('\n ----Step 3: find Quasi-Normal---- \n')
 
-  assign("g_Normal", -rMOSTenv$PHI%*%matrix(1,Fnum,1), rMOSTenv)
-  assign("g_Normal", rMOSTenv$g_Normal/(norm(matrix(rMOSTenv$g_Normal),"2")^2), rMOSTenv) # added based on try_NBI3D
+  assign("g_Normal_1C_2AIR", -rMOSTenv_1C_2AIR$PHI_1C_2AIR%*%matrix(1,Fnum,1), rMOSTenv_1C_2AIR)
+  assign("g_Normal_1C_2AIR", rMOSTenv_1C_2AIR$g_Normal_1C_2AIR/(norm(matrix(rMOSTenv_1C_2AIR$g_Normal_1C_2AIR),"2")^2), rMOSTenv_1C_2AIR) # added based on try_NBI3D
 
   #------------------------------weights-------------------------------#
 
   # cat('\n ----Step 4: create weights---- \n')
 
-  out = WeightsFun(Fnum,Spac)
+  out = WeightsFun_1C_2AIR(Fnum,Spac)
   Weight = out$Weight
   Near = out$Formers
   Weight = Weight/Spac
-  num_w = dimFun(Weight)[2]
+  num_w = dimFun_1C_2AIR(Weight)[2]
 
   #------------------------------NBI Subproblems-------------------------------#
 
@@ -196,17 +207,23 @@ NBI_1C_2AIR = function(X0,Spac,Fnum,VLB=vector(),VUB=vector(),TolX=1e-7,TolF=1e-
 
     }
 
-    # g_StartF <<- PHI%*%w + ShadowF
-    assign("g_StartF", rMOSTenv$PHI%*%w + rMOSTenv$ShadowF, rMOSTenv)
+    # g_StartF_1C_2AIR <<- PHI_1C_2AIR%*%w + ShadowF_1C_2AIR
+    assign("g_StartF_1C_2AIR", rMOSTenv_1C_2AIR$PHI_1C_2AIR%*%w + rMOSTenv_1C_2AIR$ShadowF_1C_2AIR, rMOSTenv_1C_2AIR)
 
     # SOLVE NBI SUBPROBLEM
+
+    # ##########
+    # print("")
+    # print("SOLVE NBI SUBPROBLEM")
+    # print(paste0("k = ", k))
+    # ##########
 
     # if(k %in% c(1,(Spac+1),num_w)){
     if(k %in% c(1,(Spac+1))){
 
       VLB_trials = c(VLB,0)
 
-      out = suppressMessages(nloptr::slsqp(x0 = xstart, fn = myT
+      out = suppressMessages(nloptr::slsqp(x0 = xstart, fn = myT_1C_2AIR
                                            ,lower = VLB_trials
                                            ,upper = c(VUB,Inf)
                                            ,hin = myCon_ineq_1C_2AIR
@@ -214,13 +231,19 @@ NBI_1C_2AIR = function(X0,Spac,Fnum,VLB=vector(),VUB=vector(),TolX=1e-7,TolF=1e-
                                            ,control = opts
       ))
 
+      # ########
+      # print("First IF statement")
+      # print(round(out$par, 3))
+      # print(round(out$value, 3))
+      # ########
+
     }
 
     if(k %in% num_w){
 
       VLB_trials = c(VLB,0)
 
-      out = suppressMessages(nloptr::slsqp(x0 = xstart, fn = myT
+      out = suppressMessages(nloptr::slsqp(x0 = xstart, fn = myT_1C_2AIR
                                            ,lower = VLB_trials
                                            ,upper = c(VUB,Inf)
                                            ,hin = myCon_ineq_1C_2AIR
@@ -228,13 +251,19 @@ NBI_1C_2AIR = function(X0,Spac,Fnum,VLB=vector(),VUB=vector(),TolX=1e-7,TolF=1e-
                                            ,control = opts
       ))
 
+      # ########
+      # print("Second IF statement")
+      # print(round(out$par, 3))
+      # print(round(out$value, 3))
+      # ########
+
     }
 
     if(!(k %in% c(1,(Spac+1),num_w))){
 
       VLB_trials = c(VLB,-Inf)
 
-      out = suppressMessages(nloptr::slsqp(x0 = xstart, fn = myT
+      out = suppressMessages(nloptr::slsqp(x0 = xstart, fn = myT_1C_2AIR
                                            ,lower = VLB_trials
                                            ,upper = c(VUB,Inf)
                                            ,hin = myCon_ineq_1C_2AIR
@@ -242,19 +271,45 @@ NBI_1C_2AIR = function(X0,Spac,Fnum,VLB=vector(),VUB=vector(),TolX=1e-7,TolF=1e-
                                            ,control = opts
       ))
 
+      # ########
+      # print("Third IF statement")
+      # print(round(out$par, 3))
+      # print(round(out$value, 3))
+      # ########
+
     }
+
+    # ########
+    # print("x_trial")
+    # print(round(out$par, 3))
+    # print(paste0("nvars = ", nvars))
+    # ########
 
     x_trial = out$par
     rm(out)
 
     x_trial[1:nvars] = x_trial[1:nvars]/sum(x_trial[1:nvars])
+    # ########
+    # print(round(x_trial, 3))
+    # ########
     x_trial[2:nvars] = x_trial[2:nvars]/sum(x_trial[2:nvars])
+    # ########
+    # print(round(x_trial, 3))
+    # ########
 
     Pareto_Xmat = cbind(Pareto_Xmat, x_trial[1:nvars])        # Pareto optima in X-space
     Pareto_Fmat = cbind(Pareto_Fmat, -myFM_1C_2AIR(x_trial[1:nvars]))  # Pareto optima in F-space
     X_Near = cbind(X_Near,x_trial)
+    # ###########
+    # print(round(Pareto_Xmat, 3))
+    # print(round(Pareto_Fmat, 3))
+    # ###########
 
   }
+
+  # ###########
+  # print(round(X_Near, 3))
+  # ###########
 
   #------------------------------Plot Solutions-------------------------------#
 
@@ -267,6 +322,10 @@ NBI_1C_2AIR = function(X0,Spac,Fnum,VLB=vector(),VUB=vector(),TolX=1e-7,TolF=1e-
 
   Pareto_Fmat = t(Pareto_Fmat)
   Pareto_Xmat = t(Pareto_Xmat)[,-1]
+  # ###########
+  # print(round(Pareto_Xmat, 3))
+  # print(round(Pareto_Fmat, 3))
+  # ###########
   colnames(Pareto_Fmat) = c("Ry","AIR1","AIR2")
   colnames(Pareto_Xmat) = c(paste0(rep("P",(nvars-1)),1:(nvars-1)))
 
@@ -296,18 +355,18 @@ NBI_1C_2AIR = function(X0,Spac,Fnum,VLB=vector(),VUB=vector(),TolX=1e-7,TolF=1e-
 ## myFM_1C_2AIR
 ## myCon_ineq_1C_2AIR
 ## myCon_eq_1C_2AIR
-## assert_col_vec
-## dimFun
-## WeightsFun
-## Weight_Generate
+## assert_col_vec_1C_2AIR
+## dimFun_1C_2AIR
+## WeightsFun_1C_2AIR
+## Weight_Generate_1C_2AIR
 ## myLinCom_1C_2AIR
-## myT
+## myT_1C_2AIR
 ## myTCon_eq_1C_2AIR
 ## plotPareto_1C_2AIR
 
-###### combR()######
+###### combR_1C_2AIR()######
 
-#' combR
+#' combR_1C_2AIR
 #'
 #' Support function to create predictor-criterion matrix
 #' @param Rx Predictor inter-correlation matrix
@@ -315,8 +374,8 @@ NBI_1C_2AIR = function(X0,Spac,Fnum,VLB=vector(),VUB=vector(),TolX=1e-7,TolF=1e-
 #' @return Rxy Predictor-criterion correlation matrix
 #' @keywords internal
 
-combR <- function(Rx, Ry){
-  cbind(rbind(Rx,c(Ry)),c(Ry,1))
+combR_1C_2AIR <- function(Rx, Ry){
+  cbind(rbind(Rx, c(Ry)), c(Ry, 1))
 }
 
 # ###### myFS() ######
@@ -337,12 +396,12 @@ combR <- function(Rx, Ry){
 #   # Obtain within-package 'global' variables from package env
 #   # d1 <- d1_1C_2AIR
 #   # d2 <- d2_1C_2AIR
-#   # R <- combR(Rx_1C_2AIR, Rxy1_1C_2AIR)
+#   # R <- combR_1C_2AIR(Rx_1C_2AIR, Rxy1_1C_2AIR)
 #   # R_u <- Rx_1C_2AIR
-#   d1 <- rMOSTenv$d1_1C_2AIR
-#   d2 <- rMOSTenv$d2_1C_2AIR
-#   R <- combR(rMOSTenv$Rx_1C_2AIR, rMOSTenv$Rxy1_1C_2AIR)
-#   R_u <- rMOSTenv$Rx_1C_2AIR
+#   d1 <- rMOSTenv_1C_2AIR$d1_1C_2AIR
+#   d2 <- rMOSTenv_1C_2AIR$d2_1C_2AIR
+#   R <- combR_1C_2AIR(rMOSTenv_1C_2AIR$Rx_1C_2AIR, rMOSTenv_1C_2AIR$Rxy1_1C_2AIR)
+#   R_u <- rMOSTenv_1C_2AIR$Rx_1C_2AIR
 #
 #   # variance of minority and majority applicant weighted predictor
 #   # composite (P) distribution (DeCorte, 1999)
@@ -367,7 +426,7 @@ combR <- function(Rx, Ry){
 #   a_g2 = SR2/SR0 # AI ratio of Minority_2
 #
 #   # Composite Validity R_xy
-#   Ry = t(c(t(b),0)%*%R%*%c(t(matrix(0,dimFun(R_u)[1],1)),1))/sqrt(t(b)%*%R_u%*%b) # DeCorte et al., 2007
+#   Ry = t(c(t(b),0)%*%R%*%c(t(matrix(0,dimFun_1C_2AIR(R_u)[1],1)),1))/sqrt(t(b)%*%R_u%*%b) # DeCorte et al., 2007
 #
 #   if(g_Index == 1){f = -Ry}
 #   if(g_Index == 2){f = -a_g1}
@@ -396,12 +455,12 @@ myFM_1C_2AIR = function(x){
   # Obtain within-package 'global' variables from package env
   # d1 <- d1_1C_2AIR
   # d2 <- d2_1C_2AIR
-  # R <- combR(Rx_1C_2AIR, Rxy1_1C_2AIR)
+  # R <- combR_1C_2AIR(Rx_1C_2AIR, Rxy1_1C_2AIR)
   # R_u <- Rx_1C_2AIR
-  d1 <- rMOSTenv$d1_1C_2AIR
-  d2 <- rMOSTenv$d2_1C_2AIR
-  R <- combR(rMOSTenv$Rx_1C_2AIR, rMOSTenv$Rxy1_1C_2AIR)
-  R_u <- rMOSTenv$Rx_1C_2AIR
+  d1 <- rMOSTenv_1C_2AIR$d1_1C_2AIR
+  d2 <- rMOSTenv_1C_2AIR$d2_1C_2AIR
+  R <- combR_1C_2AIR(rMOSTenv_1C_2AIR$Rx_1C_2AIR, rMOSTenv_1C_2AIR$Rxy1_1C_2AIR)
+  R_u <- rMOSTenv_1C_2AIR$Rx_1C_2AIR
 
   # variance of minority and majority applicant weighted predictor
   # composite (P) distribution (DeCorte, 1999)
@@ -426,7 +485,7 @@ myFM_1C_2AIR = function(x){
   a_g2 = SR2/SR0 # AI ratio of Minority_2
 
   # Composite Validity R_xy
-  Ry = t(c(t(b),0)%*%R%*%c(t(matrix(0,dimFun(R_u)[1],1)),1))/sqrt(t(b)%*%R_u%*%b) # DeCorte et al., 2007
+  Ry = t(c(t(b),0)%*%R%*%c(t(matrix(0,dimFun_1C_2AIR(R_u)[1],1)),1))/sqrt(t(b)%*%R_u%*%b) # DeCorte et al., 2007
 
   f = matrix(1,3,1)
   f[1,] = -Ry
@@ -441,7 +500,7 @@ myFM_1C_2AIR = function(x){
 
 # Nonlinear inequalities at x
 
-#' myCon_ineq
+#' myCon_ineq_1C_2AIR
 #'
 #' Support function, defines inequal constraint condition
 #' @param x Input predictor weight vector
@@ -471,12 +530,12 @@ myCon_eq_1C_2AIR = function(x){
   # d1 <- d1_1C_2AIR
   # d2 <- d2_1C_2AIR
   # R_u <- Rx_1C_2AIR
-  sr <- rMOSTenv$sr_1C_2AIR
-  prop1 <- rMOSTenv$prop1_1C_2AIR
-  prop2 <- rMOSTenv$prop2_1C_2AIR
-  d1 <- rMOSTenv$d1_1C_2AIR
-  d2 <- rMOSTenv$d2_1C_2AIR
-  R_u <- rMOSTenv$Rx_1C_2AIR
+  sr <- rMOSTenv_1C_2AIR$sr_1C_2AIR
+  prop1 <- rMOSTenv_1C_2AIR$prop1_1C_2AIR
+  prop2 <- rMOSTenv_1C_2AIR$prop2_1C_2AIR
+  d1 <- rMOSTenv_1C_2AIR$d1_1C_2AIR
+  d2 <- rMOSTenv_1C_2AIR$d2_1C_2AIR
+  R_u <- rMOSTenv_1C_2AIR$Rx_1C_2AIR
 
   b <- x[-1] # Predictor weight
   p_c <- x[1] # Cutoff score
@@ -516,7 +575,7 @@ myCon_eq_1C_2AIR = function(x){
 
 # Nonlinear equalities at x
 
-#' myCon_eq_1
+#' myCon_eq_1_1C_2AIR
 #'
 #' Support function, defines equal constraint condition
 #' @param x Input predictor weight vector
@@ -531,10 +590,10 @@ myCon_eq_1_1C_2AIR = function(x){
   # prop1 <- prop1_1C_2AIR
   # d1 <- d1_1C_2AIR
   # R_u <- Rx_1C_2AIR
-  sr <- rMOSTenv$sr_1C_2AIR
-  prop1 <- rMOSTenv$prop1_1C_2AIR
-  d1 <- rMOSTenv$d1_1C_2AIR
-  R_u <- rMOSTenv$Rx_1C_2AIR
+  sr <- rMOSTenv_1C_2AIR$sr_1C_2AIR
+  prop1 <- rMOSTenv_1C_2AIR$prop1_1C_2AIR
+  d1 <- rMOSTenv_1C_2AIR$d1_1C_2AIR
+  R_u <- rMOSTenv_1C_2AIR$Rx_1C_2AIR
 
   b <- x[-1] # Predictor weight
   p_c <- x[1] # Cutoff score
@@ -569,7 +628,7 @@ myCon_eq_1_1C_2AIR = function(x){
 
 # Nonlinear equalities at x
 
-#' myCon_eq_2
+#' myCon_eq_2_1C_2AIR
 #'
 #' Support function, defines equal constraint condition
 #' @param x Input predictor weight vector
@@ -584,10 +643,10 @@ myCon_eq_2_1C_2AIR = function(x){
   # prop2 <- prop1_1C_2AIR
   # d2 <- d1_1C_2AIR
   # R_u <- Rx_1C_2AIR
-  sr <- rMOSTenv$sr_1C_2AIR
-  prop2 <- rMOSTenv$prop1_1C_2AIR
-  d2 <- rMOSTenv$d1_1C_2AIR
-  R_u <- rMOSTenv$Rx_1C_2AIR
+  sr <- rMOSTenv_1C_2AIR$sr_1C_2AIR
+  prop2 <- rMOSTenv_1C_2AIR$prop2_1C_2AIR ####REVISED#####
+  d2 <- rMOSTenv_1C_2AIR$d2_1C_2AIR ####REVISED#####
+  R_u <- rMOSTenv_1C_2AIR$Rx_1C_2AIR
 
   b <- x[-1] # Predictor weight
   p_c <- x[1] # Cutoff score
@@ -616,39 +675,39 @@ myCon_eq_2_1C_2AIR = function(x){
 
 }
 
-###### assert_col_vec() ######
+###### assert_col_vec_1C_2AIR() ######
 
-#' assert_col_vec
+#' assert_col_vec_1C_2AIR
 #'
 #' Support function, refines intermediate variable for use in NBI()
 #' @param v Intermediate variable v
 #' @return Refined variable v
 #' @keywords internal
 
-assert_col_vec = function(v){
-  if(is.null(dimFun(v))){
+assert_col_vec_1C_2AIR = function(v){
+  if(is.null(dimFun_1C_2AIR(v))){
     v=v
-  }else if(dimFun(v)[1] < dimFun(v)[2]){v = t(t)}
+  }else if(dimFun_1C_2AIR(v)[1] < dimFun_1C_2AIR(v)[2]){v = t(t)}
   return(v)}
 
-###### dimFun() ######
+###### dimFun_1C_2AIR() ######
 
-#' dimFun
+#' dimFun_1C_2AIR
 #'
 #' Support function, checks input predictor weight vector x
 #' @param x Input predictor weight vector
 #' @return x Checked and refined input predictor weight vector
 #' @keywords internal
 
-dimFun = function(x){
+dimFun_1C_2AIR = function(x){
   if(is.null(dim(x))){
     return(c(0,0))
   }else(return(dim(x)))
 }
 
-###### WeightsFun() ######
+###### WeightsFun_1C_2AIR() ######
 
-#' WeightsFun
+#' WeightsFun_1C_2AIR
 #'
 #' Support function, generates all possible weights for NBI subproblems
 #' @param n Number of objects (i.e., number of predictor and criterion)
@@ -656,7 +715,7 @@ dimFun = function(x){
 #' @return Weights All possible weights for NBI subproblem
 #' @keywords internal
 
-WeightsFun = function(n, k){
+WeightsFun_1C_2AIR = function(n, k){
 
   # package env variables
   # weight, Weights, Formers, Layer, lastone, currentone
@@ -667,39 +726,39 @@ WeightsFun = function(n, k){
   # This is essentially all the possible integral partitions
   # of integer k into n parts.
 
-  assign("WeightSub", matrix(0,1,n), rMOSTenv)
+  assign("WeightSub_1C_2AIR", matrix(0,1,n), rMOSTenv_1C_2AIR)
   # WeightSub <<- matrix(0,1,n)
-  assign("Weights", vector(), rMOSTenv)
+  assign("Weights_1C_2AIR", vector(), rMOSTenv_1C_2AIR)
   # Weights <<- vector()
-  assign("Formers", vector(), rMOSTenv)
+  assign("Formers_1C_2AIR", vector(), rMOSTenv_1C_2AIR)
   # Formers <<- vector()
-  assign("Layer", n, rMOSTenv)
+  assign("Layer_1C_2AIR", n, rMOSTenv_1C_2AIR)
   # Layer <<- n
-  assign("lastone", -1, rMOSTenv)
+  assign("lastone_1C_2AIR", -1, rMOSTenv_1C_2AIR)
   # lastone <<- -1
-  assign("currentone", -1, rMOSTenv)
+  assign("currentone_1C_2AIR", -1, rMOSTenv_1C_2AIR)
   # currentone <<- -1
 
-  Weight_Generate(1, k)
+  Weight_Generate_1C_2AIR(1, k)
 
-  return(list(Weights = rMOSTenv$Weights, Formers = rMOSTenv$Formers))
+  return(list(Weights = rMOSTenv_1C_2AIR$Weights_1C_2AIR, Formers = rMOSTenv_1C_2AIR$Formers_1C_2AIR))
 
 }
 
-###### Weight_Generate() ######
+###### Weight_Generate_1C_2AIR() ######
 
-#' Weight_Generate
+#' Weight_Generate_1C_2AIR
 #'
 #' Function intended to test the weight generation scheme for NBI for > 2 objectives
 #' @param n Number of objects (i.e., number of predictor and criterion)
 #' @param k Number of Pareto points
-#' @return Weight_Generate
+#' @return Weight_Generate_1C_2AIR
 #' @keywords internal
 
-Weight_Generate = function(n, k){
+Weight_Generate_1C_2AIR = function(n, k){
 
   # package env variables:
-  # weight Weights Formers Layer lastone currentone
+  # weight_1C_2AIR Weights_1C_2AIR Formers_1C_2AIR Layer_1C_2AIR lastone_1C_2AIR currentone_1C_2AIR
 
   # wtgener_test(n,k)
   #
@@ -714,7 +773,7 @@ Weight_Generate = function(n, k){
   #     lastone <<- currentone
   #     currentone <<- -1
   #   }else{
-  #     num = dimFun(Weights)[2]
+  #     num = dimFun_1C_2AIR(Weights)[2]
   #     Formers <<- c(Formers,num)
   #   }
   #
@@ -725,39 +784,39 @@ Weight_Generate = function(n, k){
   #
   #   for(i in 0:k){
   #     if(n == (Layer - 2)){
-  #       num = dimFun(Weights)[2]
+  #       num = dimFun_1C_2AIR(Weights)[2]
   #       currentone <<- num+1
   #     }
   #
   #     WeightSub[(Layer - n + 1)] <<- i
-  #     Weight_Generate(n+1, k-i)
+  #     Weight_Generate_1C_2AIR(n+1, k-i)
   #   }
   #
   # }
-  if(n == rMOSTenv$Layer){
+  if(n == rMOSTenv_1C_2AIR$Layer_1C_2AIR){
 
-    if(rMOSTenv$currentone >= 0){
-      rMOSTenv$Formers <- c(rMOSTenv$Formers,rMOSTenv$lastone)
-      rMOSTenv$lastone <- rMOSTenv$currentone
-      rMOSTenv$currentone <- -1
+    if(rMOSTenv_1C_2AIR$currentone_1C_2AIR >= 0){
+      rMOSTenv_1C_2AIR$Formers_1C_2AIR <- c(rMOSTenv_1C_2AIR$Formers_1C_2AIR,rMOSTenv_1C_2AIR$lastone_1C_2AIR)
+      rMOSTenv_1C_2AIR$lastone_1C_2AIR <- rMOSTenv_1C_2AIR$currentone_1C_2AIR
+      rMOSTenv_1C_2AIR$currentone_1C_2AIR <- -1
     }else{
-      num = dimFun(rMOSTenv$Weights)[2]
-      rMOSTenv$Formers <- c(rMOSTenv$Formers,num)
+      num = dimFun_1C_2AIR(rMOSTenv_1C_2AIR$Weights_1C_2AIR)[2]
+      rMOSTenv_1C_2AIR$Formers_1C_2AIR <- c(rMOSTenv_1C_2AIR$Formers_1C_2AIR,num)
     }
 
-    rMOSTenv$WeightSub[(rMOSTenv$Layer - n + 1)] <- k
-    rMOSTenv$Weights <- cbind(rMOSTenv$Weights,t(rMOSTenv$WeightSub))
+    rMOSTenv_1C_2AIR$WeightSub_1C_2AIR[(rMOSTenv_1C_2AIR$Layer_1C_2AIR - n + 1)] <- k
+    rMOSTenv_1C_2AIR$Weights_1C_2AIR <- cbind(rMOSTenv_1C_2AIR$Weights_1C_2AIR,t(rMOSTenv_1C_2AIR$WeightSub_1C_2AIR))
 
   }else{
 
     for(i in 0:k){
-      if(n == (rMOSTenv$Layer - 2)){
-        num = dimFun(rMOSTenv$Weights)[2]
-        rMOSTenv$currentone <- num+1
+      if(n == (rMOSTenv_1C_2AIR$Layer_1C_2AIR - 2)){
+        num = dimFun_1C_2AIR(rMOSTenv_1C_2AIR$Weights_1C_2AIR)[2]
+        rMOSTenv_1C_2AIR$currentone_1C_2AIR <- num+1
       }
 
-      rMOSTenv$WeightSub[(rMOSTenv$Layer - n + 1)] <- i
-      Weight_Generate(n+1, k-i)
+      rMOSTenv_1C_2AIR$WeightSub_1C_2AIR[(rMOSTenv_1C_2AIR$Layer_1C_2AIR - n + 1)] <- i
+      Weight_Generate_1C_2AIR(n+1, k-i)
     }
 
   }
@@ -775,24 +834,24 @@ Weight_Generate = function(n, k){
 
 myLinCom_1C_2AIR = function(x){
 
-  # package env variable: g_Weight
+  # package env variable: g_Weight_1C_2AIR
   F   = myFM_1C_2AIR(x)
-  f = t(rMOSTenv$g_Weight)%*%F
+  f = t(rMOSTenv_1C_2AIR$g_Weight_1C_2AIR)%*%F
 
   return(f)
 
 }
 
-###### myT() ######
+###### myT_1C_2AIR() ######
 
-#' myT
+#' myT_1C_2AIR
 #'
 #' Support function, define criterion space for intermediate step in NBI()
 #' @param x_t Temporary input weight vector
 #' @return f Temporary criterion space
 #' @keywords internal
 
-myT = function(x_t){
+myT_1C_2AIR = function(x_t){
 
   # f = x_t[length(x_t)]
   f = -x_t[length(x_t)]
@@ -813,12 +872,12 @@ myT = function(x_t){
 myTCon_eq_1C_2AIR = function(x_t){
 
   # package env variables:
-  # g_Normal g_StartF
+  # g_Normal_1C_2AIR g_StartF_1C_2AIR
 
   t = x_t[length(x_t)]
   x = x_t[1:(length(x_t)-1)]
 
-  fe  = myFM_1C_2AIR(x) - rMOSTenv$g_StartF - t * rMOSTenv$g_Normal
+  fe  = myFM_1C_2AIR(x) - rMOSTenv_1C_2AIR$g_StartF_1C_2AIR - t * rMOSTenv_1C_2AIR$g_Normal_1C_2AIR
 
   ceq1 = myCon_eq_1C_2AIR(x)
   ceq = c(ceq1,fe)
@@ -843,12 +902,12 @@ myTCon_eq_1C_2AIR = function(x_t){
 myTCon_eq_1_1C_2AIR = function(x_t){
 
   # package env variables:
-  # g_Normal g_StartF
+  # g_Normal_1C_2AIR g_StartF_1C_2AIR
 
   t = x_t[length(x_t)]
   x = x_t[1:(length(x_t)-1)]
 
-  fe  = myFM_1C_2AIR(x) - rMOSTenv$g_StartF - t * rMOSTenv$g_Normal
+  fe  = myFM_1C_2AIR(x) - rMOSTenv_1C_2AIR$g_StartF_1C_2AIR - t * rMOSTenv_1C_2AIR$g_Normal_1C_2AIR
 
   ceq1 = myCon_eq_1_1C_2AIR(x)
   ceq = c(ceq1,fe)
@@ -872,12 +931,12 @@ myTCon_eq_1_1C_2AIR = function(x_t){
 myTCon_eq_2_1C_2AIR = function(x_t){
 
   # package env variables:
-  # g_Normal g_StartF
+  # g_Normal_1C_2AIR g_StartF_1C_2AIR
 
   t = x_t[length(x_t)]
   x = x_t[1:(length(x_t)-1)]
 
-  fe  = myFM_1C_2AIR(x) - rMOSTenv$g_StartF - t * rMOSTenv$g_Normal
+  fe  = myFM_1C_2AIR(x) - rMOSTenv_1C_2AIR$g_StartF_1C_2AIR - t * rMOSTenv_1C_2AIR$g_Normal_1C_2AIR
 
   ceq1 = myCon_eq_2_1C_2AIR(x)
   ceq = c(ceq1,fe)
@@ -886,18 +945,18 @@ myTCon_eq_2_1C_2AIR = function(x_t){
 
 }
 
-####### myTCon_ineq() ######
+####### myTCon_ineq_1C_2AIR() ######
 
 # Nonlinear inequalities at x
 
-#' myTCon_ineq
+#' myTCon_ineq_1C_2AIR
 #'
 #' Support function, defines inequal constraint condition
 #' @param x_t Input predictor weight vector
 #' @return Inequal constraint condition for use in NBI()
 #' @keywords internal
 
-myTCon_ineq = function(x_t){
+myTCon_ineq_1C_2AIR = function(x_t){
 
   return(vector())
 

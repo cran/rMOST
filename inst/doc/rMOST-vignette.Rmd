@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 library(rMOST)
 ```
 
-This document presents the example application of the rMOST package. Please refer to Song et al. (in press) for a complete guideline on adopting multi-objective optimization for personnel selection.
+This document presents the example application of the rMOST package. Please refer to Study 3 of Zhang et al. (in press) for a complete guideline on adopting multi-objective optimization for personnel selection.
 
 # Prepare inputs
 

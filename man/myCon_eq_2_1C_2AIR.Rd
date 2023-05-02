@@ -2,7 +2,7 @@
 % Please edit documentation in R/ParetoR_1C_2AIR.R
 \name{myCon_eq_2_1C_2AIR}
 \alias{myCon_eq_2_1C_2AIR}
-\title{myCon_eq_2}
+\title{myCon_eq_2_1C_2AIR}
 \usage{
 myCon_eq_2_1C_2AIR(x)
 }

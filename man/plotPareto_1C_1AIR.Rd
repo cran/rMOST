@@ -12,9 +12,9 @@ plotPareto_1C_1AIR(CriterionOutput, ParetoWeights)
 \item{ParetoWeights}{Pareto-Optimal predictor weight solution}
 }
 \value{
-Plot of Pareto-optimal curve and plot of predictor weights
+Plot of Pareto-optimal curve and plot of predictor Weights_1C_1AIR
 }
 \description{
-Function for plotting Pareto-optimal curve and predictor weights
+Function for plotting Pareto-optimal curve and predictor Weights_1C_1AIR
 }
 \keyword{internal}

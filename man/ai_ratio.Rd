@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_out.R
 \name{ai_ratio}
 \alias{ai_ratio}
-\title{calc_out}
+\title{ai_ratio}
 \usage{
 ai_ratio(d, sr, p)
 }
