@@ -486,12 +486,13 @@ dimFun_1C_1AIR = function(x) {
     (return(dim(x)))
 }
 
-###### dimFun_1C_1AIR() ######
+###### WeightsFun_1C_1AIR ######
 
-#' dimFun_1C_1AIR
+#' WeightsFun_1C_1AIR
 #'
 #' Support function, checks input predictor weight vector x
-#' @param x Input predictor weight vector
+#' @param n the number of objectives
+#' @param k the inverse of the 1/k, which is the unform spacing between two w_i (k integral)
 #' @return x Checked and refined input predictor weight vector
 #' @keywords internal
 

@@ -26,10 +26,9 @@ and majority subgroups on each predictor in full applicant pool}
 }
 \value{
 out Pareto-Optimal solution with objective outcome values (Criterion)
-and predictor weights (ParetoWeights)
+  and predictor weights (ParetoWeights)
 }
 \description{
 Command function to optimize 2 non-adverse impact objectives and 1 adverse
 impact objective via NBI algorithm
 }
-\keyword{internal}

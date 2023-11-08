@@ -2,12 +2,14 @@
 % Please edit documentation in R/ParetoR_1C_1AIR.R
 \name{WeightsFun_1C_1AIR}
 \alias{WeightsFun_1C_1AIR}
-\title{dimFun_1C_1AIR}
+\title{WeightsFun_1C_1AIR}
 \usage{
 WeightsFun_1C_1AIR(n, k)
 }
 \arguments{
-\item{x}{Input predictor weight vector}
+\item{n}{the number of objectives}
+
+\item{k}{the inverse of the 1/k, which is the unform spacing between two w_i (k integral)}
 }
 \value{
 x Checked and refined input predictor weight vector

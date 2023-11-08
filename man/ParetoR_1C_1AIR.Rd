@@ -25,7 +25,7 @@ predictor Weights_1C_1AIR}
 }
 \value{
 out Pareto-Optimal solution with objective outcome values (Criterion)
-and predictor Weights_1C_1AIR (ParetoWeights)
+  and predictor Weights_1C_1AIR (ParetoWeights)
 }
 \description{
 Command function to optimize 1 non-adverse impact objective and 1 adverse

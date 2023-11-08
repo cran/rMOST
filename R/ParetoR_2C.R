@@ -14,7 +14,7 @@
 #'   predictor weights
 #' @return out Pareto-Optimal solution with objective outcome values (Criterion) and
 #'   predictor weights (ParetoWeights)
-#' @keywords internal
+#' @export
 #'
 ParetoR_2C = function(Rx,
                       Rxy1,

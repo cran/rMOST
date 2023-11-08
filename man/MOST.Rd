@@ -35,31 +35,23 @@ Pareto-Optimal solutions with objective values (e.g., C1, AI1) and the correspon
 \description{
 Optimizes 3 objectives with normal boundary intersection algorithm
 }
-\section{Inputs required by optimization problems}{
+\details{
+# Inputs required by optimization problems
 Different types of optimization problems require different input parameters:
-\itemize{
-\item optProb = "3C": MOST(optProb, Rx, Rxy1, Rxy2, Rxy3)
-\item optProb = "2C_1AI": MOST(optProb, Rx, Rxy1, Rxy2, sr, prop1, d1)
-\item optProb = "1C_2AI": MOST(optProb, Rx, Rxy1, sr, prop1, d1, prop2, d2)
-}
-}
+* optProb = "3C": MOST(optProb, Rx, Rxy1, Rxy2, Rxy3)
+* optProb = "2C_1AI": MOST(optProb, Rx, Rxy1, Rxy2, sr, prop1, d1)
+* optProb = "1C_2AI": MOST(optProb, Rx, Rxy1, sr, prop1, d1, prop2, d2)
 
-\section{Notes regarding the inputs}{
-\itemize{
-\item For personnel selection applications, all predictor-intercorrelations and criterion-related validity inputs should be corrected for range restriction and criterion unreliability to reflect the relations in the applicant sample.
-\item For optimization problems with 2 adverse impact objectives (i.e., optProb = "1C_2AI"), d1 and d2 should be the standardized mean difference between a minority group and the same reference group (e.g., Black-White and Hispanic-White, not Black-White and female-male)
-}
-}
+# Notes regarding the inputs
+* For personnel selection applications, all predictor-intercorrelations and criterion-related validity inputs should be corrected for range restriction and criterion unreliability to reflect the relations in the applicant sample.
+* For optimization problems with 2 adverse impact objectives (i.e., optProb = "1C_2AI"), d1 and d2 should be the standardized mean difference between a minority group and the same reference group (e.g., Black-White and Hispanic-White, not Black-White and female-male)
 
-\section{Optimization}{
-\itemize{
-\item Optimization may take several minutes to run.
-\item Optimization may fail in some applications due to non-convergence.
-}
+# Optimization
+* Optimization may take several minutes to run.
+* Optimization may fail in some applications due to non-convergence.
 
 For more details, please consult the vignette.
 }
-
 \examples{
 # A sample optimization problem with 3 non-adverse impact objectives and 3 predictors
 # For more examples, please consult the vignette.

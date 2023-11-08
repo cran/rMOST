@@ -14,7 +14,7 @@
 #' @param Spac Number of solutions
 #' @return out Pareto-Optimal solution with objective outcome values (Criterion) and
 #'   predictor weights (ParetoWeights)
-#' @keywords internal
+#' @export
 ParetoR_3C = function(Rx,
                       Rxy1,
                       Rxy2,
@@ -338,7 +338,7 @@ myCon_eq_3C = function(x) {
 #' myCon_ineq_3C
 #'
 #' Support function, defines inequal constraint condition
-#' @param x Input predictor weight vector
+#' @param v Input predictor weight vector
 #' @return Inequal constraint condition for use in NBI()
 #' @keywords internal
 

@@ -20,7 +20,7 @@
 #' @param Spac Number of solutions
 #' @return out Pareto-Optimal solution with objective outcome values (Criterion) and
 #'   predictor weights (ParetoWeights)
-#' @keywords internal
+#' @export
 
 ParetoR_1C_2AIR = function(sr, prop1, prop2, Rx, Rxy1, d1, d2,
                            # Spac = 20){ # SHINY app says 20

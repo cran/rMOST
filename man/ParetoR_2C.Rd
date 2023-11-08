@@ -20,10 +20,9 @@ predictor weights}
 }
 \value{
 out Pareto-Optimal solution with objective outcome values (Criterion) and
-predictor weights (ParetoWeights)
+  predictor weights (ParetoWeights)
 }
 \description{
 Command function to optimize 2 non-adverse impact objectives via NBI
 algorithm
 }
-\keyword{internal}

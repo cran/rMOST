@@ -18,7 +18,7 @@
 #' @param Spac  Number of Pareto points
 #' @return out Pareto-Optimal solution with objective outcome values (Criterion)
 #'   and predictor weights (ParetoWeights)
-#' @keywords internal
+#' @export
 
 ParetoR_2C_1AIR = function(Rx, Rxy1, Rxy2, sr, prop1, d1, Spac = 10){
 

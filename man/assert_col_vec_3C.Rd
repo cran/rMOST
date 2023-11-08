@@ -7,7 +7,7 @@
 assert_col_vec_3C(v)
 }
 \arguments{
-\item{x}{Input predictor weight vector}
+\item{v}{Input predictor weight vector}
 }
 \value{
 Inequal constraint condition for use in NBI()

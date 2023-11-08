@@ -1,3 +1,8 @@
+# rMOST 1.0.1
+
+* Patch release
+* Added functions to the Reference Manual
+
 # rMOST 1.0.0
 
 * Major release

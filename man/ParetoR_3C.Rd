@@ -19,10 +19,9 @@ ParetoR_3C(Rx, Rxy1, Rxy2, Rxy3, Spac = 10)
 }
 \value{
 out Pareto-Optimal solution with objective outcome values (Criterion) and
-predictor weights (ParetoWeights)
+  predictor weights (ParetoWeights)
 }
 \description{
 Command function to optimize 3 non-adverse impact objectives via NBI
 algorithm
 }
-\keyword{internal}
